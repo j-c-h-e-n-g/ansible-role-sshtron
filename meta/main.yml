@@ -1,6 +1,6 @@
 galaxy_info:
   author: John Cheng
-  description: just another world class Ansible role 
+  description: Install and configure sshtron
   company: 
   license: license (MIT)
 
