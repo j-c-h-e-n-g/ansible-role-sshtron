@@ -2,4 +2,4 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - j-c-h-e-n-g.ansible-role-sshtron
+    - ../j-c-h-e-n-g.ansible-role-sshtron
