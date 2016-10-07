@@ -1,0 +1,5 @@
+---
+# defaults file for j-c-h-e-n-g.ansible-role-sshtron
+sshtron_ssh_port: 2222
+sshtron_http_port: 8888
+

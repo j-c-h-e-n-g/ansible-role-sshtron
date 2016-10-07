@@ -1,0 +1,11 @@
+---
+# https://golang.org/doc/install
+
+- get_url:
+    url: https://storage.googleapis.com/golang/go1.6.linux-amd64.tar.gz
+    dest: /usr/local/go1.6.linux-amd64.tar.gz
+
+- unarchive: src=/usr/local/go1.6.linux-amd64.tar.gz dest=/usr/local/ copy=no
+
+- file: src=/usr/local/go/bin/go dest=/usr/bin/go state=link
+

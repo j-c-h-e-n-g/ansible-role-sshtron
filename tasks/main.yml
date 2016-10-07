@@ -1,0 +1,41 @@
+---
+
+- include: go.yml
+
+
+- name: Install apt packages
+  apt: name={{item}} state=installed
+  with_items:
+    - supervisor
+
+- name: setting supervisord.conf
+  template:
+    src: supervisord.conf
+    dest: /etc/supervisor/conf.d/sshtron.conf
+    owner: root
+    group: root
+    mode: 755
+
+
+- name: git cloning sshtron from github
+  git: repo=https://github.com/zachlatta/sshtron.git dest=/tmp/sshtron
+
+- name: build sshtron
+  shell: cd /tmp/sshtron; export GOPATH=/opt/sshtron; export GOBIN=$GOPATH/bin; go get && go build
+  args:
+    creates: /opt/sshtron/bin/sshtron
+
+# http://stackoverflow.com/questions/15890168/how-do-i-run-ssh-keygen-so-that-it-overwrites-without-prompting-if-a-key-cert-ex
+- name: Generate id_rsa
+  command: ssh-keygen -q -t rsa -N "" -f /opt/sshtron/bin/id_rsa 
+  args:
+    creates: /opt/sshtron/bin/id_rsa
+
+
+- name: run sshtron
+  shell: SSHTRON_PID=$(sshtron &);
+
+  args:
+    chdir: /opt/sshtron/bin/
+
+
